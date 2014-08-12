@@ -4,5 +4,9 @@ todo:
 - ditch existing Error class for a proper Exception class
 - move all database-y stuff to use Doctrine DBAL...
 - ... once I get its position in the directory structure right.
-- do something with that old Hooks class, if I even need it.do
+- do something with that old Hooks class, if I even need it.
 - write more tests?
+
+Long-term goals:
+ - SSO support for bridging with many major CMSes (and maybe their plugins too!)
+ - Modules for: static pages, blog, forums, wiki, e-commerce
