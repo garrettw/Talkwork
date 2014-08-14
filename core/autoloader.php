@@ -106,19 +106,20 @@ class PSR0AutoloadRule implements AutoloadRule
     
     public function __construct($ns, $includePath)
     {
-        $this->namespace = strtolower($ns);
+        $this->namespace = $ns;
         $this->includePath = $includePath;
     }
     
     public function loadClass($className)
     {
+        $matchns = strtolower($this->namespace);
         // remove any leading backslash or underscore and convert to lowercase
         $className = strtolower(ltrim($className,'\\_'));
         
         // if this loader's namespace doesn't match that of the class to load
-        if (!empty($this->namespace)
-            && $this->namespace . NAMESPACE_SEPARATOR != substr(
-                $className, 0, strlen($this->namespace . NAMESPACE_SEPARATOR)
+        if (!empty($matchns)
+            && $matchns . NAMESPACE_SEPARATOR != substr(
+                $className, 0, strlen($matchns . NAMESPACE_SEPARATOR)
             )
         ):
             // then stop
@@ -129,9 +130,9 @@ class PSR0AutoloadRule implements AutoloadRule
 
         // Are there namespaces in the classname at all?
         if ($lastNsPos = strrpos($className, NAMESPACE_SEPARATOR)):
-            $namespace = substr($className, 0, $lastNsPos);
+            $classns = substr($className, 0, $lastNsPos);
             $className = substr($className, $lastNsPos + 1);
-            $fileName .= strtr($namespace, NAMESPACE_SEPARATOR, DIRECTORY_SEPARATOR)
+            $fileName .= strtr($classns, NAMESPACE_SEPARATOR, DIRECTORY_SEPARATOR)
                         .DIRECTORY_SEPARATOR;
         endif;
         
