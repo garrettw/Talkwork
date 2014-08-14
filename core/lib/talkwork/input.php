@@ -1,6 +1,6 @@
 <?php
 /**
- * Interface for Input classes (cli and http)
+ * Parent class for Input classes (cli and http)
  * 
  * @version    0.1
  * @author     Garrett Whitehorn
@@ -12,38 +12,21 @@ namespace Talkwork;
 
 abstract class Input
 {
+    private $route;
     private $args;
-    private $data;
+    private $dataStream;
     private $method;
     
-    public function __construct($args, $data, $method = 'cli')
+    public function __construct($route, $args, $stream, $method)
     {
+        $this->route = $route;
         $this->args = $args;
-        $this->data = $data;
+        $this->dataStream = $stream;
         $this->method = $method;
     }
     
-    public function getArgs()
+    public function __get($name)
     {
-        return $this->args;
-    }
-    
-    public function getData()
-    {
-        return $this->data;
-    }
-    
-    public function getMethod()
-    {
-        return $this->method;
-    }
-    
-    public function arg($i)
-    {
-        if (isset($this->args[$i])) {
-            return $this->args[$i];
-        } else {
-            return false;
-        }
+        return $this->$name;
     }
 }

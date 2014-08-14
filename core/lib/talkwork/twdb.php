@@ -15,10 +15,20 @@ class TwDB extends MySQLDB
 {
     public $configs;
     public $activeplugins;
+    private $tblprefix;
     
-    function __construct($host,$user,$pass,$dbname)
+    function __construct($host,$user,$pass,$dbname,$tblprefix)
     {
         parent::__construct($host,$user,$pass,$dbname);
+        
+        if (preg_match('/[^A-Za-z0-9_]/',$tblprefix)) {
+            $text = '$tblprefix can only contain numbers, letters, and underscores.';
+            header('HTTP/1.0 500 Internal Server Error');
+            echo '<br><b>Fatal error</b>: ',$text;
+            @trigger_error($text, E_USER_ERROR);
+        } else {
+            $this->tblprefix = $tblprefix;
+        }
         $this->get_configs();
         $this->activeplugins = $this->get_plugins();
     }

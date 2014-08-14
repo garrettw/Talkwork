@@ -14,17 +14,21 @@ class Talkwork
 {
     private $in; // holds an object of class Input
     
-    public function __construct(InputFactory $inf, MySQLDB $db)
+    public function __construct(Input $in, Router $r, TwDB $db)
     {
-        $this->in = $inf->build();
-            
-        require TW_DIR . 'router.inc.php';
+        $this->in = $in;
         
         if (function_exists('mb_internal_encoding')
             && !@mb_internal_encoding($db->configs['core']['charset'])
         ) {
             mb_internal_encoding('UTF-8');
         }
+        
+        // $route = $r->find(parsed($this->in));
+        // $model = new $route->model($this->in, $db);
+        // Courier anti-pattern ALERT!
+        
+        /* -- Code to be completely redone --
         session_name($this->string_to_slug($db->configs['core']['site-name']));
         session_start();
         
@@ -45,6 +49,7 @@ class Talkwork
         } else {
             Error::send(404, E_FATAL, "Controller '". CUR_MC ."' not found.");
         }
+        */
     }
     
     public function string_to_slug($s)

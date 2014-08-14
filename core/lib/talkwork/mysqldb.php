@@ -68,7 +68,7 @@ class MySQLDB
 
     function insert($table,$vs)
     { //todo: allow $vs to be an assoc array
-        $this->changes[] = 'INSERT INTO `'.DB_TBLPREFIX.$table."` $vs;";
+        $this->changes[] = 'INSERT INTO `'.$table."` $vs;";
     }
 
     // pass a resource returned from q() and get the assoc array

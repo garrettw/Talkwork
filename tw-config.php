@@ -9,6 +9,12 @@
  * @package    Talkwork
  */
 
+define('TW_DEBUGMODE', true);
+
+define('DEF_MODULE', 'static');
+define('DEF_RESOURCE', 'page');
+define('DEF_RESID', 'home');
+
 define('DB_HOST', 'localhost');
 define('DB_PORT', '3306');
 define('DB_USER', 'root');
@@ -20,4 +26,3 @@ define('DB_TBLPREFIX', '');
 define('WS_ROOT', '/');
 define('WS_ROOT_LENGTH', strlen(WS_ROOT));
 
-define('TW_DEBUGMODE', true);
