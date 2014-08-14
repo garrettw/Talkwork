@@ -12,7 +12,7 @@
 define('TW_DEBUGMODE', true);
 
 define('DEF_MODULE', 'static');
-define('DEF_RESOURCE', 'page');
+define('DEF_RESTYPE', 'page');
 define('DEF_RESID', 'home');
 
 define('DB_HOST', 'localhost');

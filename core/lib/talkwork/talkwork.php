@@ -10,7 +10,7 @@
 
 namespace Talkwork;
 
-class Talkwork
+class App
 {
     private $in; // holds an object of class Input
     
