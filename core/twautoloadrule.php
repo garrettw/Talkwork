@@ -28,26 +28,26 @@ class TwAutoloadRule implements AutoloadRule
             && $this->namespace . NAMESPACE_SEPARATOR != substr(
                 $className, 0, strlen($this->namespace . NAMESPACE_SEPARATOR)
             )
-        ) {
+        ):
             // then stop
             return false;
-        }
+        endif;
         
         $fileName = $this->includePath . DIRECTORY_SEPARATOR;
         
         // Are there namespaces in the classname at all?
-        if ($lastNsPos = strrpos($className, NAMESPACE_SEPARATOR)) {
+        if ($lastNsPos = strrpos($className, NAMESPACE_SEPARATOR)):
             $namespace = substr($className, 0, $lastNsPos);
             $className = substr($className, $lastNsPos + 1);
             $fileName .= strtr($namespace, NAMESPACE_SEPARATOR, DIRECTORY_SEPARATOR)
                         .DIRECTORY_SEPARATOR;
-        }
+        endif;
         
         $fileName .= $className . '.php';
         $filePath = stream_resolve_include_path($fileName);
-        if ($filePath) {
+        if ($filePath):
             require_once $filePath;
-        }
+        endif;
         return $filePath != false;
     }
 }

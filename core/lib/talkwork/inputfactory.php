@@ -20,11 +20,11 @@ class InputFactory
     
     public function build()
     {
-        if ($this->type == 'cli') {
+        if ($this->type == 'cli'):
             return new CLInput($argv, STDIN);
-        } else {
+        else:
             return new HTTPInput($_GET, $_POST);
-        }
+        endif;
     }
     
     public function getType()

@@ -20,9 +20,9 @@ class App
         
         if (function_exists('mb_internal_encoding')
             && !@mb_internal_encoding($db->configs['core']['charset'])
-        ) {
+        ):
             mb_internal_encoding('UTF-8');
-        }
+        endif;
         
         // $route = $r->find(parsed($this->in));
         // $model = new $route->model($this->in, $db);

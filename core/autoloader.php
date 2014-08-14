@@ -60,14 +60,14 @@ class Autoloader
             file_get_contents($dir . DIRECTORY_SEPARATOR . 'autoload.json'),
             true
         );
-        foreach ($autoloaders as $name => $params) {
+        foreach ($autoloaders as $name => $params):
             require_once
                 $dir . DIRECTORY_SEPARATOR . strtolower($name) . '.php'
             ;
             $this->addRule(new $name($params['namespace'], 
                 $dir . DIRECTORY_SEPARATOR . $params['includePath']
             ));
-        }
+        endforeach;
     }
     
     /**
@@ -81,11 +81,11 @@ class Autoloader
     
     public function load($className)
     {
-        foreach ($this->rules as $rule) {
-            if ($rule->loadClass($className)) {
+        foreach ($this->rules as $rule):
+            if ($rule->loadClass($className)):
                 return;
-            }
-        }
+            endif;
+        endforeach;
     }
 }
 
@@ -120,26 +120,26 @@ class PSR0AutoloadRule implements AutoloadRule
             && $this->namespace . NAMESPACE_SEPARATOR != substr(
                 $className, 0, strlen($this->namespace . NAMESPACE_SEPARATOR)
             )
-        ) {
+        ):
             // then stop
             return false;
-        }
+        endif;
 
         $fileName = $this->includePath . DIRECTORY_SEPARATOR;
 
         // Are there namespaces in the classname at all?
-        if ($lastNsPos = strrpos($className, NAMESPACE_SEPARATOR)) {
+        if ($lastNsPos = strrpos($className, NAMESPACE_SEPARATOR)):
             $namespace = substr($className, 0, $lastNsPos);
             $className = substr($className, $lastNsPos + 1);
             $fileName .= strtr($namespace, NAMESPACE_SEPARATOR, DIRECTORY_SEPARATOR)
                         .DIRECTORY_SEPARATOR;
-        }
+        endif;
         
         $fileName .= $className . '.php';
         $filePath = stream_resolve_include_path($fileName);
-        if ($filePath) {
+        if ($filePath):
             require_once $filePath;
-        }
+        endif;
         return $filePath != false;
     }
 }
@@ -176,18 +176,18 @@ class RewriterAutoloadRule implements AutoloadRule
             && $this->namespace . NAMESPACE_SEPARATOR != substr(
                 $className, 0, strlen($this->namespace . NAMESPACE_SEPARATOR)
             )
-        ) {
+        ):
             // then stop
             return false;
-        }
+        endif;
 
         $fileName = $this->includePath . DIRECTORY_SEPARATOR
                    .call_user_func($this->pathRewriter, $className) . '.php';
         
         $filePath = stream_resolve_include_path($fileName);
-        if ($filePath) {
+        if ($filePath):
             require_once $filePath;
-        }
+        endif;
         return $filePath != false;
     }
 }
