@@ -30,11 +30,23 @@ $loader->registerLibrary(__DIR__); // where autoload.json lives
 $dic = new \Dice\Dice;
 
 $rule = new \Dice\Rule;
-$rule->substitutions['Input'] = function() {
-    if (PHP_SAPI == 'cli'):
-        return new CLInput($argv);
-    else:
-        return new HTTPInput($_GET);
-    endif;
+if (PHP_SAPI == 'cli'):
+    $rule->instanceOf = 'Talkwork\\CLInput';
+    $rule->constructParams = [$argv];
+else:
+    $rule->instanceOf = 'Talkwork\\HTTPInput';
+    $rule->constructParams = [$_GET];
+endif;
+$rule->shared = true;
+$dic->addRule('Talkwork\\Input', $rule);
+
+$rule = new \Dice\Rule;
+$rule->substitutions['Route'] = function() {
+    return new \Talkwork\Route(DEF_MODULE, DEF_RESTYPE, DEF_RESID);
 };
-$dic->addRule('*', $rule);
+$dic->addRule('Talkwork\\App', $rule);
+
+$rule = new \Dice\Rule;
+$rule->constructParams = [DB_HOST, DB_USER, DB_PASS, DB_NAME, DB_TBLPREFIX];
+$rule->shared = true;
+$dic->addRule('Talkwork\\DB'), $rule);
