@@ -56,18 +56,37 @@ class Autoloader
      */
     public function registerLibrary($dir)
     {
-        $autoloaders = json_decode(
-            file_get_contents($dir . DIRECTORY_SEPARATOR . 'autoload.json'),
-            true
-        );
+        $jsonpath = $dir . DIRECTORY_SEPARATOR . 'autoload.json';
+        if (!file_exists($jsonpath)):
+            return false;
+        endif;
+        
+        $autoloaders = json_decode(file_get_contents($jsonpath), true);
+        
+        if ($autoloaders === null):
+            return false;
+        endif;
+        
         foreach ($autoloaders as $name => $params):
-            require_once
-                $dir . DIRECTORY_SEPARATOR . strtolower($name) . '.php'
-            ;
-            $this->addRule(new $name($params['namespace'], 
-                $dir . DIRECTORY_SEPARATOR . $params['includePath']
-            ));
+            $filepath = $dir . DIRECTORY_SEPARATOR . strtolower($name) . '.php';
+            
+            if (!(isset($params['namespace'])
+                    && isset($params['includePath'])
+                    && file_exists($filepath)
+                )
+            ):
+                return false;
+            endif;
+            
+            require_once $filepath;
+            $this->addRule(
+                new $name(
+                    $params['namespace'], 
+                    $dir . DIRECTORY_SEPARATOR . $params['includePath']
+                )
+            );
         endforeach;
+        return true;
     }
     
     /**
