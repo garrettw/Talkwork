@@ -14,19 +14,22 @@ class TwAutoloadRule implements AutoloadRule
     
     public function __construct($ns, $includePath)
     {
-        $this->namespace = strtolower($ns);
+        $this->namespace = $ns;
         $this->includePath = $includePath;
     }
     
     public function loadClass($className)
     {
+        $nssep = NAMESPACE_SEPARATOR;
         // remove leading backslash & convert to lowercase
         $className = strtolower(ltrim($className,'\\'));
         
-        // if this loader's namespace doesn't match that of the class to load
-        if (!empty($this->namespace)
-            && $this->namespace . NAMESPACE_SEPARATOR != substr(
-                $className, 0, strlen($this->namespace . NAMESPACE_SEPARATOR)
+        // if this loader's namespace doesn't match that of the class to load,
+        // either via regex or simple equivalence
+        if (!(empty($this->namespace)
+                || @preg_match($this->namespace, $className)
+                || $this->namespace . $nssep
+                    == substr($className, 0, strlen($this->namespace . $nssep))
             )
         ):
             // then stop
@@ -36,10 +39,10 @@ class TwAutoloadRule implements AutoloadRule
         $fileName = $this->includePath . DIRECTORY_SEPARATOR;
         
         // Are there namespaces in the classname at all?
-        if ($lastNsPos = strrpos($className, NAMESPACE_SEPARATOR)):
+        if ($lastNsPos = strrpos($className, $nssep)):
             $namespace = substr($className, 0, $lastNsPos);
             $className = substr($className, $lastNsPos + 1);
-            $fileName .= strtr($namespace, NAMESPACE_SEPARATOR, DIRECTORY_SEPARATOR)
+            $fileName .= strtr($namespace, $nssep, DIRECTORY_SEPARATOR)
                         .DIRECTORY_SEPARATOR;
         endif;
         
