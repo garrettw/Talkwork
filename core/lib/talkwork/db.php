@@ -1,8 +1,8 @@
 <?php
 /**
- * File:  /core/TwDB.class.php
+ * File:  /core/DB.class.php
  * Database class extended with Tw-specific methods
- * 
+ *
  * @since      0.1
  * @version    0.1
  * @author     Garrett Whitehorn
@@ -11,16 +11,16 @@
 
 namespace Talkwork;
 
-class TwDB extends MySQLDB
+class DB extends MySQLDB
 {
     public $configs;
     public $activeplugins;
     private $tblprefix;
-    
+
     function __construct($host,$user,$pass,$dbname,$tblprefix)
     {
         parent::__construct($host,$user,$pass,$dbname);
-        
+
         if (preg_match('/[^A-Za-z0-9_]/',$tblprefix)) {
             $text = '$tblprefix can only contain numbers, letters, and underscores.';
             header('HTTP/1.0 500 Internal Server Error');
@@ -32,7 +32,7 @@ class TwDB extends MySQLDB
         $this->get_configs();
         $this->activeplugins = $this->get_plugins();
     }
-    
+
     function get_configs()
     {
         // disabling some things until i fix the db structure.
@@ -64,7 +64,7 @@ class TwDB extends MySQLDB
         }
         return $rv;
     }
-  
+
     function get_config_value($module,$key)
     {
         $value = $this->read_one_field('SELECT `value` FROM `'.DB_TBLPREFIX
@@ -93,7 +93,7 @@ class TwDB extends MySQLDB
                    ."WHERE `module` = '$module' AND `key` = '$key'");
         }
     }
-  
+
     function get_plugins($formodule='*',$active=1)
     {
         $q = 'SELECT `name` FROM `'.DB_TBLPREFIX.'plugins`';
@@ -106,7 +106,7 @@ class TwDB extends MySQLDB
             $q .= ($donewhere ? ' AND ' : ' WHERE ')
                   ."`for-modules` LIKE '$formodule'";
         }
-    
+
         $ta = $this->read($q);
         $tr = [];
         foreach ($ta as &$e) {

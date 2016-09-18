@@ -14,7 +14,7 @@ class App
 {
     private $in; // holds an object of class Input
 
-    public function __construct(Input $in, Route $r, TwDB $db)
+    public function __construct(Input $in, Route $r, DB $db)
     {
         $this->in = $in;
     }

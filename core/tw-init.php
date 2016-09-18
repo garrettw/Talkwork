@@ -43,7 +43,7 @@ $dic->addRule('Talkwork\\Input', $rule);
 
 // Talkwork\App should make its Route with specific params
 $rule = new \Dice\Rule;
-$rule->substitutions['Route'] = function() {
+$rule->substitutions['Talkwork\\Route'] = function() {
     return new \Talkwork\Route(DEF_MODULE, DEF_RESTYPE, DEF_RESID);
 };
 $dic->addRule('Talkwork\\App', $rule);
