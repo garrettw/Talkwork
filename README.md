@@ -27,5 +27,12 @@ not a bad thing. Aspire aims to give those webmasters a leg up.
 - src/    (all core framework code)
 - spec/   (testable code behavior specs)
 
+# Planning
+
+- ORM: Will include a data mapper. Candidates: Doctrine, Level-2/Maphper, Analogue
+- Router: Will probably use nikic/FastRoute
+- Templating engine candidates: thephpleague/plates, Level-2/Transphporm, Twig
+
+# Contributing
 
 Any code contributions are welcomed and requested. Help me make this thing awesome!
