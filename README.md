@@ -1,4 +1,5 @@
 Aspire will be the best general-purpose PHP app framework out there.
+
 Currently targeting: PHP 5.6+
 
 In an age of front-end JavaScript frameworks like Angular, Backbone, React, Vue,
@@ -23,8 +24,8 @@ not a bad thing. Aspire aims to give those webmasters a leg up.
 
 # File structure
 
-src/    (all core framework code)
-spec/   (testable code behavior specs)
+- src/    (all core framework code)
+- spec/   (testable code behavior specs)
 
 
 Any code contributions are welcomed and requested. Help me make this thing awesome!
