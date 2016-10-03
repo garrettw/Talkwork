@@ -15,6 +15,7 @@
     "require": {
         "php": ">=5.6.0",
         "crysalead/router": "^3.0",
+        "garrettw/aspire-dic": "@dev",
         "Level-2/Maphper": "@dev",
         "Level-2/Transphporm": "^1.1"
     },
