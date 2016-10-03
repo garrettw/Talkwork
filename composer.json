@@ -1,7 +1,7 @@
 {
     "name": "garrettw/aspire",
     "description": "Aspire is a general-purpose PHP app framework.",
-    "type": "project",
+    "type": "library",
     "keywords": ["php", "framework", "adr", "mvvm", "oop", "bdd", "modular", "opinionated"],
     "homepage": "https://github.com/garrettw/aspire",
     "license": "MIT",

@@ -15,7 +15,7 @@ class FrameworkSpec extends ObjectBehavior
 
     function it_takes_input()
     {
-        $this->input($_SERVER, $_GET, $_POST, $_COOKIE, $_FILES)->shouldReturn($this);
+        $this->input($_SERVER, $_GET, $_POST, $_COOKIE, $_SESSION, $_FILES)->shouldReturn($this);
     }
 
     function it_runs()

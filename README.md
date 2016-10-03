@@ -34,9 +34,9 @@ not a bad thing. Aspire aims to give those webmasters a leg up.
 
 ## Planning
 
-- ORM: Will include a data mapper. Candidates: Doctrine, Level-2/Maphper, Analogue
-- Router: Will probably use nikic/FastRoute
-- Templating engine candidates: thephpleague/plates, Level-2/Transphporm, Twig
+- ORM (data mapper): Level-2/Maphper
+- Router: crysalead/router
+- Templating engine: Level-2/Transphporm
 - Need to find good authentication and ACL libs
 
 ## Contributing

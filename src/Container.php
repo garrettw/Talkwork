@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * @description Aspire's Inversion-of-Control dependency injection container, based on Dice
+ *
+ * @author      Tom Butler tom@r.je
+ * @author      Garrett Whitehorn http://garrettw.net/
+ * @license     http://www.opensource.org/licenses/bsd-license.php  BSD License
+ */
+
 namespace Aspire;
 
 class Container

@@ -4,7 +4,7 @@ namespace Aspire;
 
 class Framework
 {
-    public function input($server, $get, $post, $cookie, $files)
+    public function input($server, $get, $post, $cookie, $session, $files)
     {
         return $this;
     }
